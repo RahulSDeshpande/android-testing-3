@@ -15,26 +15,26 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class PlaylistsRepositoryShould : BaseUnitTest() {
 
-    private val playlistsApiService: PlaylistsApiService = mock()
+    private val playlistsService: PlaylistsService = mock()
 
     private val playlists = mock<List<PlaylistItem>>()
 
     private val exception = RuntimeException("Something went wrong")
 
     private suspend fun mockSuccessfulCase(): PlaylistsRepository {
-        whenever(playlistsApiService.getPlaylists())
+        whenever(playlistsService.getPlaylists())
             .thenReturn(flow { emit(Result.success(playlists)) })
 
-        return PlaylistsRepository(playlistsApiService)
+        return PlaylistsRepository(playlistsService)
     }
 
     @Test
     fun getPlaylistsFromApiService() =
         runTest {
-            val repository = PlaylistsRepository(playlistsApiService)
+            val repository = PlaylistsRepository(playlistsService)
             repository.getPlaylists()
 
-            verify(playlistsApiService, times(1)).getPlaylists()
+            verify(playlistsService, times(1)).getPlaylists()
         }
 
     @Test
@@ -59,11 +59,11 @@ class PlaylistsRepositoryShould : BaseUnitTest() {
     }
 
     private suspend fun mockErrorCase(): PlaylistsRepository {
-        whenever(playlistsApiService.getPlaylists()).thenReturn(
+        whenever(playlistsService.getPlaylists()).thenReturn(
             flow { emit(Result.failure(exception)) }
         )
 
-        val repository = PlaylistsRepository(playlistsApiService)
+        val repository = PlaylistsRepository(playlistsService)
         return repository
     }
 }

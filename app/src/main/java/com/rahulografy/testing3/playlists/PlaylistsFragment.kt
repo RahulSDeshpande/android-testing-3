@@ -15,9 +15,9 @@ class PlaylistsFragment : Fragment() {
 
     private lateinit var binding: FragmentPlaylistsBinding
 
-    private val playlistsApiService = PlaylistsApiService()
+    private val playlistsService = PlaylistsService(object : PlaylistsApi {})
 
-    private val playlistsRepository = PlaylistsRepository(playlistsApiService)
+    private val playlistsRepository = PlaylistsRepository(playlistsService)
 
     private val viewModel: PlaylistsViewModel by viewModels()
 

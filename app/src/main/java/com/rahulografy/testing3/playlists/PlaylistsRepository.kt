@@ -1,8 +1,9 @@
 package com.rahulografy.testing3.playlists
 
-class PlaylistsRepository(
-    private val playlistsApiService: PlaylistsApiService
-) {
+import kotlinx.coroutines.flow.flow
 
-    suspend fun getPlaylists() = playlistsApiService.getPlaylists()
+class PlaylistsRepository(private val playlistsService: PlaylistsService) {
+
+    suspend fun getPlaylists() =
+        flow<Result<List<PlaylistItem>>> { playlistsService.getPlaylists() }
 }
