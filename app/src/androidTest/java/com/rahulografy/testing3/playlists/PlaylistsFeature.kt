@@ -1,4 +1,4 @@
-package com.rahulografy.testing3
+package com.rahulografy.testing3.playlists
 
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +11,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.adevinta.android.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.adevinta.android.barista.internal.matcher.DrawableMatcher.Companion.withDrawable
+import com.rahulografy.testing3.MainActivity
+import com.rahulografy.testing3.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -42,7 +44,6 @@ class PlaylistsFeature {
 
     @Test
     fun displaysPlaylists() {
-
         Thread.sleep(4000)
 
         assertRecyclerViewItemCount(R.id.rv_playlists, 10)
@@ -88,7 +89,6 @@ class PlaylistsFeature {
     }
 
     fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> {
-
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("position $childPosition of parent ")
