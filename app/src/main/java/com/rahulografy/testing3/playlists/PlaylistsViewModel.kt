@@ -9,7 +9,7 @@ class PlaylistsViewModel : ViewModel() {
 
     val playlists = MutableLiveData<Result<List<PlaylistItem>>>()
 
-    lateinit var playlists2: LiveData<Result<List<PlaylistItem>>>
+    var playlists2: LiveData<Result<List<PlaylistItem>>>? = null
 
     fun getPlaylists(playlistsRepository: PlaylistsRepository) {
         viewModelScope.launch {

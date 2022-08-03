@@ -30,14 +30,12 @@ class PlaylistsFeature {
 
     @Test
     fun useAppContext() {
-        // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.rahulografy.testing3", appContext.packageName)
     }
 
     @Test
     fun displayScreenTitle() {
-        assertDisplayed("Hello World!")
         // assertDisplayed(mActivityRule.activity.getString(R.string.playlists_title))
         assertDisplayed("Playlists")
     }
