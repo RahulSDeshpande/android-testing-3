@@ -8,6 +8,9 @@
         android:name="com.rahulografy.testing3.PlaylistFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".playlists.PlaylistsFragment"
         tools:listitem="@layout/playlist_item" />
