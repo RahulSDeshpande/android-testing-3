@@ -11,35 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rahulografy.testing3.R
 import com.rahulografy.testing3.databinding.FragmentPlaylistsBinding
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaylistsFragment : Fragment() {
 
     private lateinit var binding: FragmentPlaylistsBinding
 
     private val viewModel: PlaylistsViewModel by viewModels()
-
-    private val retrofit =
-        Retrofit.Builder()
-            .baseUrl("https://a641e3c6-796c-438e-a2b9-454ca439269d.mock.pstmn.io")
-            .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(
-                        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-                    )
-                    .build()
-            )
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    private val playlistsApi = retrofit.create(PlaylistsApi::class.java)
-
-    private val playlistsService = PlaylistsService(playlistsApi)
-
-    private val playlistsRepository = PlaylistsRepository(playlistsService)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +34,7 @@ class PlaylistsFragment : Fragment() {
                     false
                 )
 
-        viewModel.getPlaylists(playlistsRepository)
+        viewModel.getPlaylists()
         viewModel.playlists.observe(viewLifecycleOwner) { result ->
             initList(result.getOrNull())
         }

@@ -1,19 +1,20 @@
 package com.rahulografy.testing3.playlists
 
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
-class PlaylistsViewModel : ViewModel() {
-
-    private lateinit var playlistsRepository: PlaylistsRepository
+@HiltViewModel
+class PlaylistsViewModel
+@Inject constructor(private val playlistsRepository: PlaylistsRepository) : ViewModel() {
 
     val playlists = MutableLiveData<Result<List<PlaylistItem>>>()
 
     var playlists2: LiveData<Result<List<PlaylistItem>>>? = null
 
-    fun getPlaylists(playlistsRepository: PlaylistsRepository) {
+    fun getPlaylists() {
         viewModelScope.launch {
-            this@PlaylistsViewModel.playlistsRepository = playlistsRepository
             playlistsRepository
                 .getPlaylists()
                 .collect {
